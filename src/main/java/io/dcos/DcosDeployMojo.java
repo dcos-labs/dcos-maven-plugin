@@ -28,7 +28,6 @@ public class DcosDeployMojo extends AbstractDcosMojo {
       put.setHeader("Authorization", "token=" + DcosPluginHelper.readToken(dcosTokenFile));
       put.setHeader("Content-Type", "application/json");
       put.setEntity(new FileEntity(appDefinitionFile));
-      getLog().info("" + put.getURI());
       CloseableHttpResponse response = client.execute(put);
       getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "] " + response.getEntity());
     } catch (Exception e) {
