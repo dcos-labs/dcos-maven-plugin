@@ -18,48 +18,41 @@ import java.util.Map;
 
 class DcosPluginHelper {
 
+  @SuppressWarnings("deprecation")
   static Map<String, String> readJsonFileToMap(File file) {
     Type stringStringMap = new TypeToken<Map<String, String>>() {
     }.getType();
     try {
       return new Gson().fromJson(FileUtils.readFileToString(file), stringStringMap);
     } catch (IOException e) {
-      // TODO handle exception
-      e.printStackTrace();
-      throw new RuntimeException(e);
+      throw new RuntimeException("Unable to read marathon app definition", e);
     }
   }
 
+  @SuppressWarnings("deprecation")
   static String readToken(File tokenFile) {
     try {
       return FileUtils.readFileToString(tokenFile);
     } catch (IOException e) {
-      // TODO handle exception
-      e.printStackTrace();
-      throw new RuntimeException(e);
+      throw new RuntimeException("Unable to read the token", e);
     }
   }
 
-  static CloseableHttpClient buildClient(boolean ignoreSSL) {
-    try {
-      SSLSocketFactory sslsf = new SSLSocketFactory(new TrustStrategy() {
+  @SuppressWarnings("deprecation")
+  static CloseableHttpClient buildClient(boolean ignoreSSL) throws Exception {
+    SSLSocketFactory sslsf = new SSLSocketFactory(new TrustStrategy() {
 
-        public boolean isTrusted(
-            final X509Certificate[] chain, String authType) throws CertificateException {
-          // Oh, I am easy...
-          return true;
-        }
-
-      });
-      if (ignoreSSL) {
-        return HttpClients.custom().setSSLSocketFactory(sslsf).build();
-      } else {
-        return HttpClients.createDefault();
+      public boolean isTrusted(
+          final X509Certificate[] chain, String authType) throws CertificateException {
+        // Oh, I am easy...
+        return true;
       }
-    } catch (Exception e) {
-      // TODO handle exception
-      e.printStackTrace();
-      throw new RuntimeException(e);
+
+    });
+    if (ignoreSSL) {
+      return HttpClients.custom().setSSLSocketFactory(sslsf).build();
+    } else {
+      return HttpClients.createDefault();
     }
   }
 
