@@ -20,14 +20,14 @@ public abstract class AbstractDcosMojo extends AbstractMojo {
   @Parameter(property = "dcosUrl", required = true)
   String dcosUrl;
 
-  @Parameter(defaultValue = "false", property = "ignoreSSL", required = true)
-  Boolean ignoreSSL;
+  @Parameter(defaultValue = "false", property = "ignoreSslCertificate", required = true)
+  Boolean ignoreSslCertificate;
 
   void logConfiguration() {
     Log log = getLog();
     log.info("app definition: " + appDefinitionFile);
     log.info("dcos token: " + dcosTokenFile);
     log.info("dcos url: " + dcosUrl);
-    log.info("ignore ssl certificate: " + ignoreSSL);
+    log.info("ignore ssl certificate: " + ignoreSslCertificate);
   }
 }
