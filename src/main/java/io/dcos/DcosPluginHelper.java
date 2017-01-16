@@ -8,6 +8,7 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.codehaus.plexus.util.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,10 +33,15 @@ class DcosPluginHelper {
   @SuppressWarnings("deprecation")
   static String readToken(File tokenFile) {
     try {
-      return FileUtils.readFileToString(tokenFile);
+      return FileUtils.readFileToString(tokenFile).trim().replace("\\n", "");
     } catch (IOException e) {
       throw new RuntimeException("Unable to read the token", e);
     }
+  }
+
+  static String cleanUrl(String url) {
+    // TODO refactor
+    return StringUtils.replace(url, "//", "/").replace(":/", "://");
   }
 
   @SuppressWarnings("deprecation")

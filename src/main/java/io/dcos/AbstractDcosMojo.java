@@ -1,6 +1,7 @@
 package io.dcos;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
@@ -22,4 +23,11 @@ public abstract class AbstractDcosMojo extends AbstractMojo {
   @Parameter(defaultValue = "false", property = "ignoreSSL", required = true)
   Boolean ignoreSSL;
 
+  void logConfiguration() {
+    Log log = getLog();
+    log.info("app definition: " + appDefinitionFile);
+    log.info("dcos token: " + dcosTokenFile);
+    log.info("dcos url: " + dcosUrl);
+    log.info("ignore ssl certificate: " + ignoreSSL);
+  }
 }

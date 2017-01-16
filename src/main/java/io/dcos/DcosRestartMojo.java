@@ -1,5 +1,6 @@
 package io.dcos;
 
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.FileEntity;
@@ -14,17 +15,20 @@ import java.util.Map;
 /**
  * Mojo to handle `mvn dcos:update`
  */
-@Mojo(name = "update", defaultPhase = LifecyclePhase.DEPLOY)
-public class DcosUpdateMojo extends AbstractDcosMojo {
+@Mojo(name = "restart", defaultPhase = LifecyclePhase.DEPLOY)
+public class DcosRestartMojo extends AbstractDcosMojo {
 
   public void execute() throws MojoExecutionException {
     CloseableHttpClient client = null;
     try {
+      getLog().info("About to execute DC/OS restart");
+      logConfiguration();
       client = DcosPluginHelper.buildClient(ignoreSSL);
       Map<String, String> marathonConfigurationJson = DcosPluginHelper.readJsonFileToMap(appDefinitionFile);
-      HttpPost post = new HttpPost(dcosUrl + "/service/marathon/v2/apps/" + marathonConfigurationJson.get("id") + "/restart");
+      HttpPost post = new HttpPost(DcosPluginHelper.cleanUrl(dcosUrl + "/service/marathon/v2/apps/" + marathonConfigurationJson.get("id") + "/restart"));
       post.setHeader("Authorization", "token=" + DcosPluginHelper.readToken(dcosTokenFile));
-      client.execute(post);
+      CloseableHttpResponse response = client.execute(post);
+      getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "]" + response.getEntity());
     } catch (Exception e) {
       getLog().error("Unable to perform deployment", e);
       throw new RuntimeException(e);

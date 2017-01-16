@@ -1,5 +1,6 @@
 package io.dcos;
 
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -19,12 +20,17 @@ public class DcosDeployMojo extends AbstractDcosMojo {
   public void execute() throws MojoExecutionException {
     CloseableHttpClient client = null;
     try {
+      getLog().info("About to execute DC/OS deploy");
+      logConfiguration();
       client = DcosPluginHelper.buildClient(ignoreSSL);
       Map<String, String> marathonConfigurationJson = DcosPluginHelper.readJsonFileToMap(appDefinitionFile);
-      HttpPut put = new HttpPut(dcosUrl + "/service/marathon/v2/apps/" + marathonConfigurationJson.get("id"));
+      HttpPut put = new HttpPut(DcosPluginHelper.cleanUrl(dcosUrl + "/service/marathon/v2/apps/" + marathonConfigurationJson.get("id")));
       put.setHeader("Authorization", "token=" + DcosPluginHelper.readToken(dcosTokenFile));
+      put.setHeader("Content-Type", "application/json");
       put.setEntity(new FileEntity(appDefinitionFile));
-      client.execute(put);
+      getLog().info("" + put.getURI());
+      CloseableHttpResponse response = client.execute(put);
+      getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "] " + response.getEntity());
     } catch (Exception e) {
       getLog().error("Unable to perform deployment", e);
       throw new RuntimeException(e);
