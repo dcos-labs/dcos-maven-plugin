@@ -9,7 +9,7 @@ import java.io.File;
 /**
  * Abstract Mojo for handle `mvn dcos:*` commands
  */
-public abstract class AbstractDcosMojo extends AbstractMojo {
+abstract class AbstractDcosMojo extends AbstractMojo {
 
   @Parameter(defaultValue = "${project.basedir}/app-definition.json", property = "appDefinition", required = true)
   File appDefinitionFile;

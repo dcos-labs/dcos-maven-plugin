@@ -2,8 +2,6 @@ package io.dcos;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.FileEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -23,7 +21,7 @@ public class DcosRestartMojo extends AbstractDcosMojo {
     try {
       getLog().info("About to execute DC/OS restart");
       logConfiguration();
-      client = DcosPluginHelper.buildClient(ignoreSSL);
+      client = DcosPluginHelper.buildClient(ignoreSslCertificate);
       Map<String, String> marathonConfigurationJson = DcosPluginHelper.readJsonFileToMap(appDefinitionFile);
       HttpPost post = new HttpPost(DcosPluginHelper.cleanUrl(dcosUrl + "/service/marathon/v2/apps/" + marathonConfigurationJson.get("id") + "/restart"));
       post.setHeader("Authorization", "token=" + DcosPluginHelper.readToken(dcosTokenFile));

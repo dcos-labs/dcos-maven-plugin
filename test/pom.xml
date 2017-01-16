@@ -15,8 +15,8 @@
                 <artifactId>dcos-maven-plugin</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <configuration>
-                    <dcosUrl>https://frontend-elasticl-aa2y8grjjvgj-1704662551.eu-central-1.elb.amazonaws.com/</dcosUrl>
-                    <ignoreSSL>true</ignoreSSL>
+                    <dcosUrl>http://junterste-elasticl-1j6yqdjx1qa8f-2107866714.us-west-2.elb.amazonaws.com/</dcosUrl>
+                    <ignoreSslCertificate>true</ignoreSslCertificate>
                 </configuration>
             </plugin>
         </plugins>
