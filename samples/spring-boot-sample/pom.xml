@@ -37,6 +37,14 @@
         </dependency>
     </dependencies>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>dcos-repo</id>
+            <name>DC/OS Repo</name>
+            <url>http://downloads.dcos.io/maven</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
         <plugins>
             <plugin>
@@ -69,7 +77,7 @@
                 <artifactId>dcos-maven-plugin</artifactId>
                 <version>0.1-SNAPSHOT</version>
                 <configuration>
-                    <dcosUrl>http://junterste-elasticl-nne0d6r823fs-2010862002.eu-central-1.elb.amazonaws.com/</dcosUrl>
+                    <dcosUrl>http://junterste-elasticl-cpj5k7bvd28r-547397757.eu-central-1.elb.amazonaws.com/</dcosUrl>
                     <ignoreSslCertificate>true</ignoreSslCertificate>
                 </configuration>
             </plugin>

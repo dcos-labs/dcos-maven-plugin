@@ -115,6 +115,14 @@ Security is bound to DC/OS auth tokens which have defined time to life of 5 days
 You can find a complete example using a Spring Boot web application in the `sample/spring-boot-sample` folder. 
 
 ```
+<pluginRepositories>
+   <pluginRepository>
+      <id>dcos-repo</id>
+      <name>DC/OS Repo</name>
+      <url>http://downloads.dcos.io/maven</url>
+   </pluginRepository>
+</pluginRepositories>
+
 <build>
    <plugins>
       <plugin>
@@ -141,7 +149,7 @@ You can find a complete example using a Spring Boot web application in the `samp
       <plugin>
          <groupId>dcos</groupId>
          <artifactId>dcos-maven-plugin</artifactId>
-         <version>0.1-SNAPSHOT</version>
+         <version>0.1</version>
          <configuration>
             <dcosUrl>http://junterste-elasticl-nne0d6r823fs-2010862002.eu-central-1.elb.amazonaws.com/</dcosUrl>
             <ignoreSslCertificate>true</ignoreSslCertificate>

@@ -8,6 +8,14 @@
     <artifactId>mvn-plugin-simple-sample</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>dcos-repo</id>
+            <name>DC/OS Repo</name>
+            <url>http://downloads.dcos.io/maven</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
         <plugins>
             <plugin>
