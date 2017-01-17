@@ -55,6 +55,7 @@ If you just want to restart your application, for example you updated the docker
 
 
 ## Docker Maven Plugin
+### Using the plugin
 This plugin plays well with the [docker-maven-plugin](https://github.com/spotify/docker-maven-plugin) of spotify. You might want to use this plugin to build and push your docker images. After using 
 
 ```
@@ -69,7 +70,7 @@ mvn dcos:restart
 
 to restart your application on DC/OS. Combined: `mvn docker:build docker:push dcos:restart`
 
-**Attention** When using `mvn dcos:restart` please make sure you you are using the `forcePullImage` flag in your marathon configuration to disable image caching, for example:
+**Attention:** When using `mvn dcos:restart` please make sure you you are using the `forcePullImage` flag in your marathon configuration to disable image caching, for example:
 
 ```
 {
@@ -79,6 +80,22 @@ to restart your application on DC/OS. Combined: `mvn docker:build docker:push dc
     "forcePullImage": true
   }
 }
+```
+
+### Configuring docker hub credentials
+You need to configure your [docker hub](https://hub.docker.com/) login credentials within your maven `~/.m2/settings.xml` configuration:
+
+```
+<servers>
+   <server>
+      <id>docker-hub</id>
+      <username>your-user</username>
+      <password>your-password</password>
+      <configuration>
+         <email>your@user.com</email>
+      </configuration>
+   </server>
+</servers>
 ```
 
 
