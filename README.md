@@ -154,5 +154,5 @@ You can find a complete example using a Spring Boot web application in the `samp
 You only need to adapt the configuration (`.dcos-token` & `pom.xml`) and run
 
 ```
-mvn docker:build docker:push dcos:deploy
+mvn clean package docker:build docker:push dcos:deploy
 ```
