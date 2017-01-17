@@ -1,5 +1,6 @@
 package io.dcos;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -26,7 +27,7 @@ public class DcosRestartMojo extends AbstractDcosMojo {
       HttpPost post = new HttpPost(DcosPluginHelper.cleanUrl(dcosUrl + "/service/marathon/v2/apps/" + marathonConfigurationJson.get("id") + "/restart"));
       post.setHeader("Authorization", "token=" + DcosPluginHelper.readToken(dcosTokenFile));
       CloseableHttpResponse response = client.execute(post);
-      getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "]" + response.getEntity());
+      getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "] " + IOUtils.toString(response.getEntity().getContent(), "UTF-8"));
     } catch (Exception e) {
       getLog().error("Unable to perform deployment", e);
       throw new RuntimeException(e);

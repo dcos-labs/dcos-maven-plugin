@@ -1,5 +1,6 @@
 package io.dcos;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.FileEntity;
@@ -29,7 +30,7 @@ public class DcosDeployMojo extends AbstractDcosMojo {
       put.setHeader("Content-Type", "application/json");
       put.setEntity(new FileEntity(appDefinitionFile));
       CloseableHttpResponse response = client.execute(put);
-      getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "] " + response.getEntity());
+      getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "] " + IOUtils.toString(response.getEntity().getContent(), "UTF-8"));
     } catch (Exception e) {
       getLog().error("Unable to perform deployment", e);
       throw new RuntimeException(e);
