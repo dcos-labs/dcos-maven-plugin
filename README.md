@@ -6,6 +6,7 @@ Containerized applications deployed on DC/OS are realized through Marathon. You 
 - [Marathon documentation](http://mesosphere.github.io/marathon/docs/application-basics.html)
 - [DC/OS 101 tutorials](https://dcos.io/docs/1.8/usage/tutorials/dcos-101/)
 
+
 ## Configuration
 Example plugin configuration:
 
@@ -52,6 +53,7 @@ If you want to create or update your application, you want to use `mvn dcos:depl
 ### dcos:restart
 If you just want to restart your application, for example you updated the docker image in your registry, you want to use `mvn dcos:restart`. No application definition will be sent to DC/OS, only the restart trigger for the defined application ID will be sent.
 
+
 ## Docker Maven Plugin
 This plugin plays well with the [docker-maven-plugin](https://github.com/spotify/docker-maven-plugin) of spotify. You might want to use this plugin to build and push your docker images. After using 
 
@@ -78,6 +80,12 @@ to restart your application on DC/OS. Combined: `mvn docker:build docker:push dc
   }
 }
 ```
+
+
+## Limitations
+### Only available for apps
+This plugin is currently only able to deploy apps. PODs and Groups are currently not supported
+
 
 ## Run example
 You can find a complete example using a Spring Boot web application in the `test` folder. 
