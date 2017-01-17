@@ -112,10 +112,43 @@ Security is bound to DC/OS auth tokens which have defined time to life of 5 days
 
 
 ## Run example
-You can find a complete example using a Spring Boot web application in the `sample/` folder. 
+You can find a complete example using a Spring Boot web application in the `sample/spring-boot-sample` folder. 
 
 ```
-TODO plugins configuration from pom.xml
+<build>
+   <plugins>
+      <plugin>
+         <groupId>com.spotify</groupId>
+         <artifactId>docker-maven-plugin</artifactId>
+         <version>0.4.13</version>
+         <configuration>
+            <serverId>docker-hub</serverId>
+            <imageName>unterstein/dcos-maven-spring-sample</imageName>
+            <baseImage>java</baseImage>
+            <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+            <exposes>
+               <expose>8080</expose>
+            </exposes>
+            <resources>
+               <resource>
+                  <targetPath>/</targetPath>
+                  <directory>${project.build.directory}</directory>
+                  <include>${project.build.finalName}.jar</include>
+               </resource>
+            </resources>
+         </configuration>
+      </plugin>
+      <plugin>
+         <groupId>io.dcos</groupId>
+         <artifactId>dcos-maven-plugin</artifactId>
+         <version>0.1-SNAPSHOT</version>
+         <configuration>
+            <dcosUrl>http://junterste-elasticl-nne0d6r823fs-2010862002.eu-central-1.elb.amazonaws.com/</dcosUrl>
+            <ignoreSslCertificate>true</ignoreSslCertificate>
+         </configuration>
+      </plugin>
+   </plugins>
+</build>
 ```
 
 You only need to adapt the configuration (`.dcos-token` & `pom.xml`) and run
