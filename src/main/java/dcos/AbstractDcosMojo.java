@@ -1,4 +1,4 @@
-package io.dcos;
+package dcos;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.logging.Log;

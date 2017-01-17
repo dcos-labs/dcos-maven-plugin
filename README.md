@@ -14,7 +14,7 @@ Example plugin configuration:
     <build>
         <plugins>
             <plugin>
-                <groupId>io.dcos</groupId>
+                <groupId>dcos</groupId>
                 <artifactId>dcos-maven-plugin</artifactId>
                 <version>0.1-SNAPSHOT</version>
                 <configuration>
@@ -139,7 +139,7 @@ You can find a complete example using a Spring Boot web application in the `samp
          </configuration>
       </plugin>
       <plugin>
-         <groupId>io.dcos</groupId>
+         <groupId>dcos</groupId>
          <artifactId>dcos-maven-plugin</artifactId>
          <version>0.1-SNAPSHOT</version>
          <configuration>
