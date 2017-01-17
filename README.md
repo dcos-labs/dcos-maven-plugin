@@ -88,7 +88,7 @@ This plugin is currently only able to deploy apps. PODs and Groups are currently
 
 
 ## Run example
-You can find a complete example using a Spring Boot web application in the `test` folder. 
+You can find a complete example using a Spring Boot web application in the `sample/` folder. 
 
 ```
 TODO plugins configuration from pom.xml
