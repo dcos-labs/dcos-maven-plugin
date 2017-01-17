@@ -42,6 +42,10 @@ If you want to skip ssl certificate verification, e.g. you have a self-signed ce
 If you are using the DC/OS CLI, just do the following:
 
 ```
+# log in
+dcos auth login
+
+# get the token
 dcos config show core.dcos_acs_token
 ```
 
@@ -102,6 +106,9 @@ You need to configure your [docker hub](https://hub.docker.com/) login credentia
 ## Limitations
 ### Only available for apps
 This plugin is currently only able to deploy apps. PODs and Groups are currently not supported
+
+### Security
+Security is bound to DC/OS auth tokens which have defined time to life of 5 days.
 
 
 ## Run example
