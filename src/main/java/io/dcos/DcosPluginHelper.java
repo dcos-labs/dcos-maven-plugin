@@ -20,12 +20,12 @@ import java.util.Map;
 class DcosPluginHelper {
 
   @SuppressWarnings("deprecation")
-  static Map<String, String> readJsonFileToMap(File file) {
-    Type stringStringMap = new TypeToken<Map<String, String>>() {
+  static Map<String, Object> readJsonFileToMap(File file) {
+    Type stringStringMap = new TypeToken<Map<String, Object>>() {
     }.getType();
     try {
       return new Gson().fromJson(FileUtils.readFileToString(file), stringStringMap);
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new RuntimeException("Unable to read marathon app definition", e);
     }
   }

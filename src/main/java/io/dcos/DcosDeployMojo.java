@@ -23,7 +23,7 @@ public class DcosDeployMojo extends AbstractDcosMojo {
       getLog().info("About to execute DC/OS deploy");
       logConfiguration();
       client = DcosPluginHelper.buildClient(ignoreSslCertificate);
-      Map<String, String> marathonConfigurationJson = DcosPluginHelper.readJsonFileToMap(appDefinitionFile);
+      Map<String, Object> marathonConfigurationJson = DcosPluginHelper.readJsonFileToMap(appDefinitionFile);
       HttpPut put = new HttpPut(DcosPluginHelper.cleanUrl(dcosUrl + "/service/marathon/v2/apps/" + marathonConfigurationJson.get("id")));
       put.setHeader("Authorization", "token=" + DcosPluginHelper.readToken(dcosTokenFile));
       put.setHeader("Content-Type", "application/json");
