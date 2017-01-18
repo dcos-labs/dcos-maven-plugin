@@ -117,9 +117,9 @@ You can find a complete example using a Spring Boot web application in the `samp
 ```
 <pluginRepositories>
    <pluginRepository>
-      <id>dcos-repo</id>
-      <name>DC/OS Repo</name>
-      <url>http://downloads.dcos.io/maven</url>
+      <id>mesosphere-repo</id>
+      <name>Mesosphere Repo</name>
+      <url>http://downloads.mesosphere.io/maven</url>
    </pluginRepository>
 </pluginRepositories>
 

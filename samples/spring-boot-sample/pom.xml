@@ -39,9 +39,9 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>dcos-repo</id>
-            <name>DC/OS Repo</name>
-            <url>http://downloads.dcos.io/maven</url>
+            <id>mesosphere-repo</id>
+            <name>Mesosphere Repo</name>
+            <url>http://downloads.mesosphere.io/maven</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -73,11 +73,11 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>io.dcos</groupId>
+                <groupId>dcos</groupId>
                 <artifactId>dcos-maven-plugin</artifactId>
                 <version>0.1-SNAPSHOT</version>
                 <configuration>
-                    <dcosUrl>http://junterste-elasticl-cpj5k7bvd28r-547397757.eu-central-1.elb.amazonaws.com/</dcosUrl>
+                    <dcosUrl>http://junterste-elasticl-792mfv4rl50j-59247683.us-west-2.elb.amazonaws.com/</dcosUrl>
                     <ignoreSslCertificate>true</ignoreSslCertificate>
                 </configuration>
             </plugin>
