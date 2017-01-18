@@ -16,7 +16,7 @@ Example plugin configuration:
             <plugin>
                 <groupId>dcos</groupId>
                 <artifactId>dcos-maven-plugin</artifactId>
-                <version>0.1-SNAPSHOT</version>
+                <version>0.1</version>
                 <configuration>
                     <dcosUrl>http://junterste-elasticl-1j6yqdjx1qa8f-2107866714.us-west-2.elb.amazonaws.com/</dcosUrl>
                     <ignoreSslCertificate>true</ignoreSslCertificate>
