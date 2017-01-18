@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MvnPluginSpringSampleApplication {
 
   @RequestMapping("/")
-  public String randomJoke() {
+  public String hi() {
     return "Hi!";
   }
 
