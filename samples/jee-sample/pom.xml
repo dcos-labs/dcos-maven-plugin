@@ -5,6 +5,13 @@
     <artifactId>mvn-plugin-jee-sample</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -13,12 +20,52 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>mesosphere-repo</id>
+            <name>Mesosphere Repo</name>
+            <url>http://downloads.mesosphere.io/maven</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
-        <finalName>mvn-plugin-jee-sample</finalName>
+        <finalName>sample</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.13</version>
+                <configuration>
+                    <serverId>docker-hub</serverId>
+                    <imageName>unterstein/dcos-maven-jee-sample</imageName>
+                    <baseImage>airhacks/tomee</baseImage>
+                    <exposes>
+                        <expose>8080</expose>
+                    </exposes>
+                    <resources>
+                        <resource>
+                            <targetPath>/opt/apache-tomee-plus-7.0.2/webapps/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.war</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>dcos</groupId>
+                <artifactId>dcos-maven-plugin</artifactId>
+                <version>0.1</version>
+                <configuration>
+                    <dcosUrl>http://junterste-elasticl-792mfv4rl50j-59247683.us-west-2.elb.amazonaws.com/</dcosUrl>
+                    <ignoreSslCertificate>true</ignoreSslCertificate>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <failOnMissingWebXml>false</failOnMissingWebXml>
-    </properties>
 </project>
