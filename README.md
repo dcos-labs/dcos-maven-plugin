@@ -30,7 +30,7 @@ Example plugin configuration:
 By default, you need to place your application definition in the `app-definition.json`. You can change this filename with the `appDefinition` parameter.
 
 ### dcosTokenFile
-By default, you need to place your DC/OS authentication token in the `.dcos-token` file. You can can change this filename with the `dcosTokenFile` parameter.
+By default, you need to place your DC/OS authentication token in the `.dcos-token` file. You can change this filename with the `dcosTokenFile` parameter.
 
 ### dcosUrl
 You can configure the URL of your DC/OS with the `dcosUrl` configuration node in your plugin configuration within your `pom.xml`.
