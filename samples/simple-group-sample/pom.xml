@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.dcos</groupId>
+    <artifactId>mvn-plugin-simple-sample</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>mesosphere-repo</id>
+            <name>Mesosphere Repo</name>
+            <url>http://downloads.mesosphere.io/maven</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>dcos</groupId>
+                <artifactId>dcos-maven-plugin</artifactId>
+                <version>0.2-SNAPSHOT</version>
+                <configuration>
+                    <dcosUrl>https://frontend-elasticl-lgydh6t853qv-753743843.eu-central-1.elb.amazonaws.com/</dcosUrl>
+                    <deployable>group</deployable>
+                    <appDefinitionFile>group-definition.json</appDefinitionFile>
+                    <ignoreSslCertificate>true</ignoreSslCertificate>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

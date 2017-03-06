@@ -1,0 +1,19 @@
+{
+  "id": "/test",
+  "apps": [
+    {
+      "id": "first",
+      "cpus": 0.001,
+      "instances": 1,
+      "mem": 128,
+      "cmd": "sleep 1000"
+    },
+    {
+      "id": "second",
+      "cpus": 0.001,
+      "instances": 1,
+      "mem": 128,
+      "cmd": "sleep 1000"
+    }
+  ]
+}
