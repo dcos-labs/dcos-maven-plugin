@@ -34,10 +34,6 @@
 
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.4.13</version>
@@ -62,7 +58,7 @@
                 <artifactId>dcos-maven-plugin</artifactId>
                 <version>0.1</version>
                 <configuration>
-                    <dcosUrl>http://junterste-elasticl-792mfv4rl50j-59247683.us-west-2.elb.amazonaws.com/</dcosUrl>
+                    <dcosUrl>https://frontend-elasticl-lgydh6t853qv-753743843.eu-central-1.elb.amazonaws.com/</dcosUrl>
                     <ignoreSslCertificate>true</ignoreSslCertificate>
                 </configuration>
             </plugin>
