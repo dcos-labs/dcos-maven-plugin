@@ -21,7 +21,7 @@
             <plugin>
                 <groupId>dcos</groupId>
                 <artifactId>dcos-maven-plugin</artifactId>
-                <version>0.2-SNAPSHOT</version>
+                <version>0.3</version>
                 <configuration>
                     <dcosUrl>https://frontend-elasticl-lgydh6t853qv-753743843.eu-central-1.elb.amazonaws.com/</dcosUrl>
                     <deployable>group</deployable>
