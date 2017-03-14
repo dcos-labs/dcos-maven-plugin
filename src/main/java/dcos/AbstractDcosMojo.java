@@ -36,14 +36,16 @@ abstract class AbstractDcosMojo extends AbstractMojo {
     log.info("deployable: " + deployable);
   }
 
-  String buildDcosUrl() {
-    String result = dcosUrl + "/service/marathon/v2/";
+  String buildDcosUrl(Object id) {
+    String url = dcosUrl + "/service/marathon/v2/";
+    String result;
     if (StringUtils.equalsIgnoreCase("POD", deployable)) {
-      return result + "pods/";
+      result = url + "pods/" + id;
     } else if (StringUtils.equalsIgnoreCase("GROUP", deployable)) {
-      return result + "groups/";
+      result = url + "groups/";
     } else {
-      return result + "apps/";
+      result = url + "apps/" + id;
     }
+    return DcosPluginHelper.cleanUrl(result);
   }
 }
