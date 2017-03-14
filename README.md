@@ -222,8 +222,13 @@ For sure docker can be combined with groups and pods as well.
 
 
 ## Versions
+### 0.3
+- Fixes #7 by changing default name for marathon configurations to `application.json`
+- Fixes #11 by enabling auto detection for apps, groups and pods
+
 ### 0.2
-- Adding support for PODs and Groups
+- Fixes #2 by adding support for groups
+- Fixes #3 by adding support for pods
 
 ### 0.1
 - Initial version enabling `dcos:deploy` and `dcos:restart`
