@@ -223,12 +223,12 @@ For sure docker can be combined with groups and pods as well.
 
 ## Versions
 ### 0.3 (not yeat released)
-- Fixes https://github.com/dcos-labs/dcos-maven-plugin/issues/7 by changing default name for marathon configurations to `application.json`
-- Fixes https://github.com/dcos-labs/dcos-maven-plugin/issues/11 by enabling auto detection for apps, groups and pods
+- Fixes [#7](https://github.com/dcos-labs/dcos-maven-plugin/issues/7) by changing default name for marathon configurations to `application.json`
+- Fixes [#11](https://github.com/dcos-labs/dcos-maven-plugin/issues/11) by enabling auto detection for apps, groups and pods
 
 ### 0.2
-- Fixes https://github.com/dcos-labs/dcos-maven-plugin/issues/2 by adding support for groups
-- Fixes https://github.com/dcos-labs/dcos-maven-plugin/issues/3 by adding support for pods
+- Fixes [#2](https://github.com/dcos-labs/dcos-maven-plugin/issues/2) by adding support for groups
+- Fixes [#3](https://github.com/dcos-labs/dcos-maven-plugin/issues/3) by adding support for pods
 
 ### 0.1
 - Initial version enabling `dcos:deploy` and `dcos:restart`
