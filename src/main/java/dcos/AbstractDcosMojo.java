@@ -6,6 +6,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
+import java.util.Map;
 
 /**
  * Abstract Mojo for handle `mvn dcos:*` commands
@@ -24,7 +25,7 @@ abstract class AbstractDcosMojo extends AbstractMojo {
   @Parameter(defaultValue = "false", property = "ignoreSslCertificate", required = true)
   Boolean ignoreSslCertificate;
 
-  @Parameter(defaultValue = "APP", property = "deployable", required = true)
+  @Parameter(defaultValue = "EMPTY", property = "deployable", required = true)
   String deployable;
 
   void logConfiguration() {
@@ -36,16 +37,39 @@ abstract class AbstractDcosMojo extends AbstractMojo {
     log.info("deployable: " + deployable);
   }
 
-  String buildDcosUrl(Object id) {
-    String url = dcosUrl + "/service/marathon/v2/";
+  String buildDcosUrl(Object id, Map<String, Object> entity) {
+    String baseUrl = dcosUrl + "/service/marathon/v2/";
     String result;
+    // Legacy handling
     if (StringUtils.equalsIgnoreCase("POD", deployable)) {
-      result = url + "pods/" + id;
+      result = podUrl(baseUrl, id);
     } else if (StringUtils.equalsIgnoreCase("GROUP", deployable)) {
-      result = url + "groups/";
+      result = groupUrl(baseUrl, id);
+    } else if (StringUtils.equalsIgnoreCase("APP", deployable)) {
+      result = appUrl(baseUrl, id);
     } else {
-      result = url + "apps/" + id;
+      // new `automatic` handling
+      if (entity.containsKey("containers")) {
+        result = podUrl(baseUrl, id);
+      } else if (entity.containsKey("apps")) {
+        result = groupUrl(baseUrl, id);
+      } else {
+        result = appUrl(baseUrl, id);
+      }
     }
-    return DcosPluginHelper.cleanUrl(result);
+    getLog().info("Calculated url: " + result);
+    return result;
+  }
+
+  private String appUrl(String baseUrl, Object id) {
+    return DcosPluginHelper.cleanUrl(baseUrl + "apps/" + id);
+  }
+
+  private String groupUrl(String baseUrl, Object id) {
+    return DcosPluginHelper.cleanUrl(baseUrl + "groups/");
+  }
+
+  private String podUrl(String baseUrl, Object id) {
+    return DcosPluginHelper.cleanUrl(baseUrl + "pods/" + id);
   }
 }
