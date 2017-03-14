@@ -13,8 +13,11 @@ import java.util.Map;
  */
 abstract class AbstractDcosMojo extends AbstractMojo {
 
-  @Parameter(defaultValue = "${project.basedir}/app-definition.json", property = "appDefinition", required = true)
+  @Parameter(defaultValue = "${project.basedir}/application.json", property = "appDefinition", required = true)
   File appDefinitionFile;
+
+  @Parameter(defaultValue = "${project.basedir}/app-definition.json", property = "legacyAppDefinition", required = true, readonly = true)
+  File legacyAppDefinitionFile;
 
   @Parameter(defaultValue = "${project.basedir}/.dcos-token", property = "dcosTokenFile", required = true)
   File dcosTokenFile;
@@ -31,6 +34,7 @@ abstract class AbstractDcosMojo extends AbstractMojo {
   void logConfiguration() {
     Log log = getLog();
     log.info("app definition: " + appDefinitionFile);
+    log.info("legacy default app definition: " + legacyAppDefinitionFile);
     log.info("dcos token: " + dcosTokenFile);
     log.info("dcos url: " + dcosUrl);
     log.info("ignore ssl certificate: " + ignoreSslCertificate);

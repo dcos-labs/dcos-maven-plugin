@@ -23,7 +23,7 @@ public class DcosRestartMojo extends AbstractDcosMojo {
       getLog().info("About to execute DC/OS restart");
       logConfiguration();
       client = DcosPluginHelper.buildClient(ignoreSslCertificate);
-      Map<String, Object> marathonConfigurationJson = DcosPluginHelper.readJsonFileToMap(appDefinitionFile);
+      Map<String, Object> marathonConfigurationJson = DcosPluginHelper.readJsonFileToMap(appDefinitionFile, legacyAppDefinitionFile);
       HttpPost post = new HttpPost(DcosPluginHelper.cleanUrl(buildDcosUrl(marathonConfigurationJson.get("id"), marathonConfigurationJson) + "/restart"));
       post.setHeader("Authorization", "token=" + DcosPluginHelper.readToken(dcosTokenFile));
       CloseableHttpResponse response = client.execute(post);

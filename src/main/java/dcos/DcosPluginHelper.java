@@ -31,6 +31,14 @@ class DcosPluginHelper {
   }
 
   @SuppressWarnings("deprecation")
+  static Map<String, Object> readJsonFileToMap(File file, File fallbackFile) {
+    if (file.exists()) {
+      return readJsonFileToMap(file);
+    }
+    return readJsonFileToMap(fallbackFile);
+  }
+
+  @SuppressWarnings("deprecation")
   static String readToken(File tokenFile) {
     try {
       return FileUtils.readFileToString(tokenFile).trim().replace("\\n", "");
