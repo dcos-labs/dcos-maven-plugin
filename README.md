@@ -225,6 +225,7 @@ For sure docker can be combined with groups and pods as well.
 ### 0.3
 - Fixes [#7](https://github.com/dcos-labs/dcos-maven-plugin/issues/7) by changing default name for marathon configurations to `application.json`
 - Fixes [#11](https://github.com/dcos-labs/dcos-maven-plugin/issues/11) by enabling auto detection for apps, groups and pods
+- **DEPRECATION:** Usage of `app-definition.json` is deprecated in favor of `application.json` and will be removed in 0.4
 
 ### 0.2
 - Fixes [#2](https://github.com/dcos-labs/dcos-maven-plugin/issues/2) by adding support for groups
