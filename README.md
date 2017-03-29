@@ -104,15 +104,14 @@ You need to configure your [docker hub](https://hub.docker.com/) login credentia
 
 
 ## Limitations
-### Only available for apps
-This plugin is currently only able to deploy apps. PODs and Groups are currently not supported
-
 ### Security
 Security is bound to DC/OS auth tokens which have defined time to life of 5 days.
 
 
 ## Run example
 You can find a complete example using a Spring Boot web application in the `sample/spring-boot-sample` folder. 
+
+### Docker
 
 ```
 <pluginRepositories>
@@ -149,7 +148,7 @@ You can find a complete example using a Spring Boot web application in the `samp
       <plugin>
          <groupId>dcos</groupId>
          <artifactId>dcos-maven-plugin</artifactId>
-         <version>0.1</version>
+         <version>0.2</version>
          <configuration>
             <dcosUrl>http://junterste-elasticl-nne0d6r823fs-2010862002.eu-central-1.elb.amazonaws.com/</dcosUrl>
             <ignoreSslCertificate>true</ignoreSslCertificate>
@@ -164,3 +163,72 @@ You only need to adapt the configuration (`.dcos-token` & `pom.xml`) and run
 ```
 mvn clean package docker:build docker:push dcos:deploy
 ```
+
+### Groups
+
+```
+<pluginRepositories>
+   <pluginRepository>
+      <id>mesosphere-repo</id>
+      <name>Mesosphere Repo</name>
+      <url>http://downloads.mesosphere.io/maven</url>
+   </pluginRepository>
+</pluginRepositories>
+
+<build>
+   <plugins>
+      <plugin>
+         <groupId>dcos</groupId>
+         <artifactId>dcos-maven-plugin</artifactId>
+         <version>0.2</version>
+         <configuration>
+            <dcosUrl>http://junterste-elasticl-nne0d6r823fs-2010862002.eu-central-1.elb.amazonaws.com/</dcosUrl>
+            <deployable>group</deployable>
+            <ignoreSslCertificate>true</ignoreSslCertificate>
+         </configuration>
+      </plugin>
+   </plugins>
+</build>
+```
+
+### Pods
+
+```
+<pluginRepositories>
+   <pluginRepository>
+      <id>mesosphere-repo</id>
+      <name>Mesosphere Repo</name>
+      <url>http://downloads.mesosphere.io/maven</url>
+   </pluginRepository>
+</pluginRepositories>
+
+<build>
+   <plugins>
+      <plugin>
+         <groupId>dcos</groupId>
+         <artifactId>dcos-maven-plugin</artifactId>
+         <version>0.2</version>
+         <configuration>
+            <dcosUrl>http://junterste-elasticl-nne0d6r823fs-2010862002.eu-central-1.elb.amazonaws.com/</dcosUrl>
+            <deployable>pod</deployable>
+            <ignoreSslCertificate>true</ignoreSslCertificate>
+         </configuration>
+      </plugin>
+   </plugins>
+</build>
+```
+
+For sure docker can be combined with groups and pods as well.
+
+
+## Versions
+### 0.3 (not yeat released)
+- Fixes [#7](https://github.com/dcos-labs/dcos-maven-plugin/issues/7) by changing default name for marathon configurations to `application.json`
+- Fixes [#11](https://github.com/dcos-labs/dcos-maven-plugin/issues/11) by enabling auto detection for apps, groups and pods
+
+### 0.2
+- Fixes [#2](https://github.com/dcos-labs/dcos-maven-plugin/issues/2) by adding support for groups
+- Fixes [#3](https://github.com/dcos-labs/dcos-maven-plugin/issues/3) by adding support for pods
+
+### 0.1
+- Initial version enabling `dcos:deploy` and `dcos:restart`

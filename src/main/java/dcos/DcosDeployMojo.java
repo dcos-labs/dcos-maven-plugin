@@ -24,11 +24,16 @@ public class DcosDeployMojo extends AbstractDcosMojo {
       getLog().info("About to execute DC/OS deploy");
       logConfiguration();
       client = DcosPluginHelper.buildClient(ignoreSslCertificate);
-      Map<String, Object> marathonConfigurationJson = DcosPluginHelper.readJsonFileToMap(appDefinitionFile);
-      HttpPut put = new HttpPut(DcosPluginHelper.cleanUrl(dcosUrl + "/service/marathon/v2/apps/" + marathonConfigurationJson.get("id")));
+      Map<String, Object> marathonConfigurationJson = DcosPluginHelper.readJsonFileToMap(appDefinitionFile, legacyAppDefinitionFile);
+      HttpPut put = new HttpPut(buildDcosUrl(marathonConfigurationJson.get("id"), marathonConfigurationJson));
       put.setHeader("Authorization", "token=" + DcosPluginHelper.readToken(dcosTokenFile));
       put.setHeader("Content-Type", "application/json");
-      put.setEntity(new FileEntity(appDefinitionFile));
+      if (appDefinitionFile.exists()) {
+        put.setEntity(new FileEntity(appDefinitionFile));
+      } else {
+        // legacy handling
+        put.setEntity(new FileEntity(legacyAppDefinitionFile));
+      }
       CloseableHttpResponse response = client.execute(put);
       getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "] " + IOUtils.toString(response.getEntity().getContent(), "UTF-8"));
     } catch (Exception e) {

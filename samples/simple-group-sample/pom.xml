@@ -23,7 +23,8 @@
                 <artifactId>dcos-maven-plugin</artifactId>
                 <version>0.3-SNAPSHOT</version>
                 <configuration>
-                    <dcosUrl>https://junterste-elasticl-wzqyi9j6o2f2-484663919.eu-central-1.elb.amazonaws.com/</dcosUrl>
+                    <dcosUrl>https://frontend-elasticl-lgydh6t853qv-753743843.eu-central-1.elb.amazonaws.com/</dcosUrl>
+                    <appDefinitionFile>group-definition.json</appDefinitionFile>
                     <ignoreSslCertificate>true</ignoreSslCertificate>
                 </configuration>
             </plugin>
