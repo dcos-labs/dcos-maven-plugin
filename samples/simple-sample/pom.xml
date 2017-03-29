@@ -21,7 +21,7 @@
             <plugin>
                 <groupId>dcos</groupId>
                 <artifactId>dcos-maven-plugin</artifactId>
-                <version>0.3-SNAPSHOT</version>
+                <version>0.3</version>
                 <configuration>
                     <dcosUrl>https://junterste-elasticl-wzqyi9j6o2f2-484663919.eu-central-1.elb.amazonaws.com/</dcosUrl>
                     <ignoreSslCertificate>true</ignoreSslCertificate>
