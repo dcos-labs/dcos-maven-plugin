@@ -1,4 +1,4 @@
-package dcos;
+package io.dcos;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;

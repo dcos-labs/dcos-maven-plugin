@@ -1,4 +1,4 @@
-package dcos;
+package io.dcos;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
