@@ -1,4 +1,4 @@
-package dcos;
+package io.dcos;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;

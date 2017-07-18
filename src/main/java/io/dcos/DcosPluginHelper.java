@@ -1,4 +1,4 @@
-package dcos;
+package io.dcos;
 
 
 import com.google.gson.Gson;
