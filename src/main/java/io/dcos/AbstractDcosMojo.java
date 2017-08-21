@@ -28,7 +28,16 @@ abstract class AbstractDcosMojo extends AbstractMojo {
   @Parameter(defaultValue = "dcos", property = "nexusRepositoryName", required = false)
   String nexusRepositoryName;
 
-  @Parameter(defaultValue = "${project.basedir}/.dcos-token", property = "dcosTokenFile", required = true)
+    // Required if you want to push to artifact store
+    @Parameter(defaultValue = "admin", property = "nexusUser", required = false)
+    String nexusUser;
+
+    // Required if you want to push to artifact store
+    @Parameter(defaultValue = "admin123", property = "nexusPassword", required = false)
+    String nexusPassword;
+
+
+    @Parameter(defaultValue = "${project.basedir}/.dcos-token", property = "dcosTokenFile", required = true)
   File dcosTokenFile;
 
   @Parameter(property = "dcosUrl", required = true)

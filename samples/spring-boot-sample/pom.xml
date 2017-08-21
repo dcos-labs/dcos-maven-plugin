@@ -5,7 +5,7 @@
 
     <groupId>io.dcos</groupId>
     <artifactId>mvn-plugin-spring-sample</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>mvn-plugin-spring-sample</name>
@@ -44,33 +44,12 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.13</version>
-                <configuration>
-                    <serverId>docker-hub</serverId>
-                    <imageName>mesosphere/dcos-maven-spring-sample</imageName>
-                    <baseImage>java</baseImage>
-                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
-                    <exposes>
-                        <expose>8080</expose>
-                    </exposes>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>dcos</groupId>
                 <artifactId>dcos-maven-plugin</artifactId>
                 <version>0.4-SNAPSHOT</version>
                 <configuration>
-                    <dcosUrl>https://joerg-r1s-elasticl-g4n2uqja5qbl-474514631.us-west-2.elb.amazonaws.com/</dcosUrl>
-                    <artifactUrl>52.39.107.193:1956</artifactUrl>
+                    <dcosUrl>https://joerg-a6u-elasticl-u301awdkkf3s-514314542.us-west-2.elb.amazonaws.com/</dcosUrl>
+                    <nexusUrl>35.163.44.101:20684</nexusUrl>
                     <ignoreSslCertificate>true</ignoreSslCertificate>
                 </configuration>
             </plugin>
