@@ -11,7 +11,7 @@ public class MvnPluginSpringSampleApplication {
 
   @RequestMapping("/")
   public String hi() {
-    return "Hi!";
+    return "Hi OSS-Team and community!";
   }
 
   public static void main(String[] args) {

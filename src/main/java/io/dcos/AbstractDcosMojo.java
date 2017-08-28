@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.util.Map;
@@ -19,6 +20,22 @@ abstract class AbstractDcosMojo extends AbstractMojo {
   @Parameter(defaultValue = "${project.basedir}/app-definition.json", property = "legacyAppDefinition", required = true, readonly = true)
   File legacyAppDefinitionFile;
 
+  // Required if you want to push to artifact store
+  @Parameter(defaultValue = "EMPTY", property = "nexusUrl", required = false)
+  String nexusUrl;
+
+  // Required if you want to push to artifact store
+  @Parameter(defaultValue = "dcos", property = "nexusRepositoryName", required = false)
+  String nexusRepositoryName;
+
+  // Required if you want to push to artifact store
+  @Parameter(defaultValue = "admin", property = "nexusUser", required = false)
+  String nexusUser;
+
+  // Required if you want to push to artifact store
+  @Parameter(defaultValue = "admin123", property = "nexusPassword", required = false)
+  String nexusPassword;
+
   @Parameter(defaultValue = "${project.basedir}/.dcos-token", property = "dcosTokenFile", required = true)
   File dcosTokenFile;
 
@@ -30,6 +47,9 @@ abstract class AbstractDcosMojo extends AbstractMojo {
 
   @Parameter(defaultValue = "EMPTY", property = "deployable", required = true)
   String deployable;
+
+  @Parameter(defaultValue = "${project}", readonly = true, required = true)
+  MavenProject project;
 
   void logConfiguration() {
     Log log = getLog();

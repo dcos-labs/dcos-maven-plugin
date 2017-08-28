@@ -5,7 +5,7 @@
 
     <groupId>io.dcos</groupId>
     <artifactId>mvn-plugin-spring-sample</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>mvn-plugin-spring-sample</name>
@@ -37,14 +37,6 @@
         </dependency>
     </dependencies>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>mesosphere-repo</id>
-            <name>Mesosphere Repo</name>
-            <url>http://downloads.mesosphere.io/maven</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <build>
         <plugins>
             <plugin>
@@ -52,32 +44,12 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.13</version>
-                <configuration>
-                    <serverId>docker-hub</serverId>
-                    <imageName>unterstein/dcos-maven-spring-sample</imageName>
-                    <baseImage>java</baseImage>
-                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
-                    <exposes>
-                        <expose>8080</expose>
-                    </exposes>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>dcos</groupId>
                 <artifactId>dcos-maven-plugin</artifactId>
-                <version>0.3</version>
+                <version>0.4-SNAPSHOT</version>
                 <configuration>
-                    <dcosUrl>http://junterste-elasticl-792mfv4rl50j-59247683.us-west-2.elb.amazonaws.com/</dcosUrl>
+                    <dcosUrl>https://joerg-a6u-elasticl-u301awdkkf3s-514314542.us-west-2.elb.amazonaws.com/</dcosUrl>
+                    <nexusUrl>35.163.44.101:20684</nexusUrl>
                     <ignoreSslCertificate>true</ignoreSslCertificate>
                 </configuration>
             </plugin>
