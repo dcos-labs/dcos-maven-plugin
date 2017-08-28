@@ -1,18 +1,11 @@
 package io.dcos;
 
-import net.iharder.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.Credentials;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
-import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -21,10 +14,9 @@ import org.apache.maven.plugins.annotations.Mojo;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 /**
- * Mojo to handle `mvn dcos:pushArtifact`
+ * Mojo to handle `mvn dcos:uploadArtifact`
  */
 @Mojo(name = "uploadArtifact", defaultPhase = LifecyclePhase.DEPLOY)
 public class DcosUploadArtifactMojo extends AbstractDcosMojo {
@@ -36,35 +28,26 @@ public class DcosUploadArtifactMojo extends AbstractDcosMojo {
     try {
       getLog().info("About to execute DC/OS pushArtifact.");
 
-      CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-      credentialsProvider.setCredentials(AuthScope.ANY,
-              new UsernamePasswordCredentials("admin", "admin123"));
-      client = HttpClientBuilder.create().setDefaultCredentialsProvider(credentialsProvider).build();
+      client = HttpClientBuilder.create().build();
 
       // this is the main artifact file
       File file = project.getArtifact().getFile();
 
       // check if artifact exists
       if (file == null) {
-        throw new RuntimeException("Artifact does not exist. Did you run mvn package dcos:pushArtifact?");
+        throw new RuntimeException("Artifact does not exist. You need to package first. Did you run `mvn package dcos:uploadArtifact`?");
       }
 
-      getLog().info(project.getArtifact().getFile().toString());
+      getLog().info("Uploading this file: " + file.toString());
 
-      Process p = Runtime.getRuntime().exec("curl -u " + nexusUser + ":" + nexusPassword +"  --upload-file "+ project.getArtifact().getFile().toString()  + " http://" + nexusUrl + "/repository/" + nexusRepositoryName + "/");//file.toString());
+      HttpPut put = new HttpPut("http://" + nexusUrl + "/repository/" + nexusRepositoryName + "/" + file.getName());
 
+      put.addHeader("Authorization", "Basic " + Base64.encodeBase64String((nexusUser + ":" + nexusPassword).getBytes()));
 
-//      MultipartEntityBuilder builder  = MultipartEntityBuilder.create();
-//      builder.addBinaryBody("file", file, ContentType.create("application/octet-stream"), file.toString());
+      put.setEntity(new FileEntity(file, ContentType.DEFAULT_BINARY));
 
-//      Map<String, Object> marathonConfigurationJson = DcosPluginHelper.readJsonFileToMap(appDefinitionFile, legacyAppDefinitionFile);
-//      HttpPut put = new HttpPut("http://" + nexusUrl + "/repository/" + nexusRepositoryName + "/");
-//      getLog().info(put.toString());
-//      // put.setEntity(builder.build());
-//      StringEntity jsonData = new StringEntity("{\"id\":\"123\", \"name\":\"Vicky Thakor\"}", "UTF-8");
-//      put.setEntity(jsonData);
-//      CloseableHttpResponse response = client.execute(put);
-   //   getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "] " + IOUtils.toString(response.getEntity().getContent(), "UTF-8"));
+      CloseableHttpResponse response = client.execute(put);
+      getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "] " + IOUtils.toString(response.getEntity().getContent(), "UTF-8"));
     } catch (Exception e) {
       getLog().error("Unable to perform deployment", e);
       throw new RuntimeException(e);
