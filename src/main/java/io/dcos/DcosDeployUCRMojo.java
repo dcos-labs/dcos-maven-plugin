@@ -9,12 +9,15 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
-import java.util.Arrays;
-import java.util.List;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -42,7 +45,7 @@ public class DcosDeployUCRMojo extends AbstractDcosMojo {
         throw new RuntimeException("Artifact does not exist. Did you run mvn package dcos:pushArtifact?");
       }
 
-      tmpPath= FileSystems.getDefault().getPath((appDefinitionFile.toPath().toString() + ".tmp"));
+      tmpPath = FileSystems.getDefault().getPath((appDefinitionFile.toPath().toString() + ".tmp"));
       Files.copy(appDefinitionFile.toPath(), tmpPath, REPLACE_EXISTING);
 
       Path path = Paths.get(appDefinitionFile.getAbsolutePath());
