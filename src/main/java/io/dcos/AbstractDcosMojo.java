@@ -36,7 +36,6 @@ abstract class AbstractDcosMojo extends AbstractMojo {
   @Parameter(defaultValue = "admin123", property = "nexusPassword", required = false)
   String nexusPassword;
 
-
   @Parameter(defaultValue = "${project.basedir}/.dcos-token", property = "dcosTokenFile", required = true)
   File dcosTokenFile;
 
