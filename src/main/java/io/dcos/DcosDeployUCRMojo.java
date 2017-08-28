@@ -41,7 +41,7 @@ public class DcosDeployUCRMojo extends AbstractDcosMojo {
 
       // check if artifact exists
       if (file == null) {
-        throw new RuntimeException("Artifact does not exist. Did you run mvn package dcos:pushArtifact?");
+        throw new RuntimeException("Artifact does not exist. You need to package first. Did you run `mvn package dcos:deployUCR`?");
       }
 
       tmpPath = File.createTempFile("ucr-deploy", "json").toPath();
