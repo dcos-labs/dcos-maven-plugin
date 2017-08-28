@@ -14,7 +14,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -45,7 +44,7 @@ public class DcosDeployUCRMojo extends AbstractDcosMojo {
         throw new RuntimeException("Artifact does not exist. Did you run mvn package dcos:pushArtifact?");
       }
 
-      tmpPath = FileSystems.getDefault().getPath((appDefinitionFile.toPath().toString() + ".tmp"));
+      tmpPath = File.createTempFile("ucr-deploy", "json").toPath();
       Files.copy(appDefinitionFile.toPath(), tmpPath, REPLACE_EXISTING);
 
       Path path = Paths.get(appDefinitionFile.getAbsolutePath());
@@ -69,10 +68,6 @@ public class DcosDeployUCRMojo extends AbstractDcosMojo {
 
       CloseableHttpResponse response = client.execute(put);
       getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "] " + IOUtils.toString(response.getEntity().getContent(), "UTF-8"));
-
-      // Copy file back
-      Files.copy(tmpPath, appDefinitionFile.toPath(), REPLACE_EXISTING);
-
     } catch (Exception e) {
       getLog().error("Unable to perform deployment", e);
       throw new RuntimeException(e);
@@ -82,6 +77,14 @@ public class DcosDeployUCRMojo extends AbstractDcosMojo {
           client.close();
         } catch (IOException e) {
           getLog().warn("Unable to close the http client", e);
+        }
+      }
+      // clean up after deployment
+      if (tmpPath != null && tmpPath.toFile().exists()) {
+        try {
+          Files.delete(tmpPath);
+        } catch (IOException e) {
+          getLog().warn("Unable to delete temporary app definition", e);
         }
       }
     }
