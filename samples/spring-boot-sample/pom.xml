@@ -46,7 +46,7 @@
             <plugin>
                 <groupId>dcos</groupId>
                 <artifactId>dcos-maven-plugin</artifactId>
-                <version>0.4-SNAPSHOT</version>
+                <version>0.4</version>
                 <configuration>
                     <dcosUrl>https://joerg-a6u-elasticl-u301awdkkf3s-514314542.us-west-2.elb.amazonaws.com/</dcosUrl>
                     <nexusUrl>35.163.44.101:20684</nexusUrl>
