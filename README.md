@@ -222,6 +222,10 @@ For sure docker can be combined with groups and pods as well.
 
 
 ## Versions
+### 0.4
+- Introduced new support for UCR and nexus support [#15](https://github.com/dcos-labs/dcos-maven-plugin/pull/15)
+- Commands `dcos:deployUCR` and `dcos:uploadArtifact` were added, see [example](https://github.com/dcos-labs/dcos-maven-plugin/blob/master/samples/spring-boot-sample/application.json)
+
 ### 0.3
 - Fixes [#7](https://github.com/dcos-labs/dcos-maven-plugin/issues/7) by changing default name for marathon configurations to `application.json`
 - Fixes [#11](https://github.com/dcos-labs/dcos-maven-plugin/issues/11) by enabling auto detection for apps, groups and pods
