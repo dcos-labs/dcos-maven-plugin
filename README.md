@@ -57,6 +57,12 @@ If you want to create or update your application, you want to use `mvn dcos:depl
 ### dcos:restart
 If you just want to restart your application, for example you updated the docker image in your registry, you want to use `mvn dcos:restart`. No application definition will be sent to DC/OS, only the restart trigger for the defined application ID will be sent.
 
+### dcos:uploadArtifact
+If you run `mvn clean package dcos:uploadArtifact`, this plugin will take the newly built jar file and publish it to your configured nexus server, see example configuration [here](https://github.com/dcos-labs/dcos-maven-plugin/blob/master/samples/spring-boot-sample/pom.xml#L52).
+
+### dcos:deployUCR
+If you successfully uploaded your jar file to your configured nexus server (no matter if you used the maven plugin or did a manual upload) and you have an app definition like [this](https://github.com/dcos-labs/dcos-maven-plugin/blob/master/samples/spring-boot-sample/application.json), the `mvn dcos:deployUCR` command will replace your placeholders in your application.json with your nexus URLs and deploy this to marathon.
+
 
 ## Docker Maven Plugin
 ### Using the plugin
@@ -224,7 +230,7 @@ For sure docker can be combined with groups and pods as well.
 ## Versions
 ### 0.4
 - Introduced new support for UCR and nexus support [#15](https://github.com/dcos-labs/dcos-maven-plugin/pull/15)
-- Commands `dcos:deployUCR` and `dcos:uploadArtifact` were added, see [example](https://github.com/dcos-labs/dcos-maven-plugin/blob/master/samples/spring-boot-sample/application.json)
+- Commands `dcos:deployUCR` and `dcos:uploadArtifact` were added, see [example app definition](https://github.com/dcos-labs/dcos-maven-plugin/blob/master/samples/spring-boot-sample/application.json) and [pom.xml](https://github.com/dcos-labs/dcos-maven-plugin/blob/master/samples/spring-boot-sample/pom.xml)
 
 ### 0.3
 - Fixes [#7](https://github.com/dcos-labs/dcos-maven-plugin/issues/7) by changing default name for marathon configurations to `application.json`
