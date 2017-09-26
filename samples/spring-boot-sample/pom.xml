@@ -17,6 +17,14 @@
         <version>1.4.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+         
+     <pluginRepositories>
+        <pluginRepository>
+            <id>mesosphere-repo</id>
+            <name>Mesosphere Repo</name>
+            <url>http://downloads.mesosphere.io/maven</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
