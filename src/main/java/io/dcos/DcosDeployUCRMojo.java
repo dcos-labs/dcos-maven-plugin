@@ -29,7 +29,7 @@ public class DcosDeployUCRMojo extends AbstractDcosMojo {
 
   public void execute() throws MojoExecutionException {
     CloseableHttpClient client = null;
-    Path tmpPath = null;
+    File tmpFile = null;
     try {
       getLog().info("About to execute DC/OS deployUCR");
       logConfiguration();
@@ -44,8 +44,8 @@ public class DcosDeployUCRMojo extends AbstractDcosMojo {
         throw new RuntimeException("Artifact does not exist. You need to package first. Did you run `mvn package dcos:deployUCR`?");
       }
 
-      tmpPath = File.createTempFile("ucr-deploy", "json").toPath();
-      Files.copy(appDefinitionFile.toPath(), tmpPath, REPLACE_EXISTING);
+      tmpFile = File.createTempFile("ucr-deploy", "json");
+      //Files.copy(appDefinitionFile.toPath(), tmpFile.toPath(), REPLACE_EXISTING);
 
       Path path = Paths.get(appDefinitionFile.getAbsolutePath());
       Charset charset = StandardCharsets.UTF_8;
@@ -54,17 +54,17 @@ public class DcosDeployUCRMojo extends AbstractDcosMojo {
       content = content.replaceAll("<FILENAME>", file.getName());
       content = content.replaceAll("<NEXUS_URL>", nexusUrl);
 
-      FileOutputStream fooStream = new FileOutputStream(appDefinitionFile, false);
+      FileOutputStream fooStream = new FileOutputStream(tmpFile, false);
       fooStream.write(content.getBytes());
       fooStream.close();
 
-      getLog().info(tmpPath.toString());
+      getLog().info("TempFile: " + tmpFile.toPath().toString());
 
       HttpPut put = new HttpPut(buildDcosUrl(marathonConfigurationJson.get("id"), marathonConfigurationJson) + "?force=true'");
       put.setHeader("Authorization", "token=" + DcosPluginHelper.readToken(dcosTokenFile));
       put.setHeader("Content-Type", "application/json");
 
-      put.setEntity(new FileEntity(appDefinitionFile));
+      put.setEntity(new FileEntity(tmpFile));
 
       CloseableHttpResponse response = client.execute(put);
       getLog().info("Response from DC/OS [" + response.getStatusLine().getStatusCode() + "] " + IOUtils.toString(response.getEntity().getContent(), "UTF-8"));
@@ -80,9 +80,9 @@ public class DcosDeployUCRMojo extends AbstractDcosMojo {
         }
       }
       // clean up after deployment
-      if (tmpPath != null && tmpPath.toFile().exists()) {
+      if (tmpFile != null && tmpFile.exists()) {
         try {
-          Files.delete(tmpPath);
+          Files.delete(tmpFile.toPath());
         } catch (IOException e) {
           getLog().warn("Unable to delete temporary app definition", e);
         }
