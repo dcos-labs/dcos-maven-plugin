@@ -4,7 +4,7 @@
 
     <groupId>dcos</groupId>
     <artifactId>dcos-maven-plugin</artifactId>
-    <version>0.5</version>
+    <version>0.6-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>mvn-plugin Maven Plugin</name>
